@@ -23,7 +23,7 @@ class Llm():
             messages=conversation_history,
             functions=functions,
             function_call=self.func_call,
-            temperature=1,
+            temperature=0,
         )
 
         message = response.choices[0].message

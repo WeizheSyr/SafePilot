@@ -142,10 +142,10 @@ class Verifier(Fol_verifier):
             reason = "The plan does not meet the goal."
         else:
             # The plan has invalid steps.
-            reason = ""
+            reason = "The plan is invalid according to the steps below.\n"
             for i in range(wrong_steps):
                 reason += str(self.plan[i]) + '\n'
-            reason += "The plan is invalid according to the steps above."
+            # reason += "The plan is invalid according to the steps above."
         return reason
 
 if __name__ == "__main__":
