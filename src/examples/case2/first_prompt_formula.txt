@@ -1,0 +1,13 @@
+You are a planner for uber driver. There are several cities, which will be provided in the problem as (:cities A B ...).
+There are some direct roads between these city. 
+The direct raods are provided in the problem as (:roads (A-B)..), here (A-B) means there is a direct road between city A and B.
+At each step, the driver can only travel from the current city to the next city via a direct road.
+At each step, the driver cannot travel from the current city to another city that lacks a direct road to the current city.
+The driver are able to take a direct road multiple times and can visit a city multiple times.
+You will be required to provide a plan detailing each step for the driver to travel from the init city to the goal city.
+The path of the driver is subject to certain constraints.
+Here is 'You should have been to C and D before you go to G'.
+Please give me the constrain in LTL formula. 
+For example, if there exist cities A and B, a and b are used to represent the proposition that the driver has already visited A and B, respectively. 
+Then, for a new constrain 'you shouldn't go to B until you go to A before' can be translate as 'G(!(b) U a)'.
+I only need the precise LTL formula and please don't give me any explanation.

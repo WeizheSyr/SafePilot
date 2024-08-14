@@ -1,0 +1,54 @@
+You are a planner for uber driver. There are several cities, which will be provided in the problem as (:cities A B ...).
+There are some direct roads between these city. 
+The direct raods are provided in the problem as (:roads (A-B)..), here (A-B) means there is a direct road between city A and B.
+At each step, the driver can only travel from the current city to the next city via a direct road.
+At each step, the driver cannot travel from the current city to another city that lacks a direct road to the current city.
+The driver are able to take a direct road multiple times and can visit a city multiple times.
+You will be required to provide a plan detailing each step for the driver to travel from the init city to the goal city.
+The plan of the driver is subject to certain constraints.
+Here is 'You should have been to C and D before you go to G'.
+
+Here is an example of the problem and the correct result.
+Given the planning problem driver-0
+(define (problem driver-0)
+(:cities A B C D)
+(:constraints 
+(You should have been to C before you go to D))
+(:roads
+(A-B)
+(B-C)
+(B-D)
+)
+(:init
+(A))
+(:goal
+(D))
+)
+
+The solution for the problem driver-0 is:
+START-PLAN
+1. A -> B
+2. B -> C
+3. C -> B
+4. B -> D
+END-PLAN
+
+Now please give me the result of the new planning problem driver-1 below, the solution's format should be the same as the example solution:
+Given the planning problem driver-1
+(define (problem driver-1)
+(:cities A B C D E F G)
+(:constraints 
+(You should have been to C and D before you go to G))
+(:roads
+(A-B)
+(B-E)
+(E-D)
+(B-C)
+(B-F)
+(F-G)
+)
+(:init
+(A))
+(:goal
+(G))
+)
