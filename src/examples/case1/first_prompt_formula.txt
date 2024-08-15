@@ -28,6 +28,7 @@ If the block1 is being unstacked from the block2 to the hand, then the following
 Above are the details of these operations.
 I will use Z3 to verify future plans. please help me complete the following code in which translate all the above four actions into first order logic using the  the formatting of Z3 Pyhton API.
 Please do not alter the code within the provided class State.
+I don't need any explanation.
 Your response should include all the code, starting with 'from z3 import *'.
 Below is the incomplete code. I have already implemented the pick_up, stack functions for your reference.
 

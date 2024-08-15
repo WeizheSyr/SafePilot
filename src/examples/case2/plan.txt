@@ -1,0 +1,13 @@
+START-PLAN
+1. A -> B
+2. B -> D
+3. C -> B
+4. B -> A
+5. A -> E
+6. E -> D
+7. D -> E
+8. E -> A
+9. A -> B
+10. B -> F
+11. F -> G
+END-PLAN

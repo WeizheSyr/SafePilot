@@ -1,5 +1,6 @@
 import json
 from verifier import *
+from fol_verifier import *
 
 import sys
 import os
@@ -49,7 +50,8 @@ func_plan = [
         }
     ]
 func_call_plan = {"name": "save_plan"}
-model_plan = "gpt-4-turbo"
+# model_plan = "gpt-4-turbo"
+model_plan ="gpt-4o"
 
 formula_path = "first_prompt_formula.txt"
 problem_path = "first_prompt_plan.txt"
@@ -58,6 +60,7 @@ reason_path='run1.txt'
 llm_formula = Llm(func_formula, func_call_formula, model_formula, api_key)
 llm_plan = Llm(func_plan, func_call_plan, model_plan, api_key)
 verifier = Verifier(problem_path, reason_path)
+fol_verifier = Verifier2(problem_path)
 
 def main():
     first_prompt_formula = llm_formula.get_prompt_from_file(formula_path)
@@ -85,16 +88,25 @@ def main():
         response_plan_dict = json.loads(response_plan)
         raw_plan = response_plan_dict["plan"]
         print(raw_plan)
-        verification_result, reason = verifier.verification(ltl_spec, raw_plan)
-        if not verification_result:
-            if llm_plan.iter_num < 2:
-                print(reason)
-                response_plan, llm_plan.conversation_history = llm_plan.call(reason)
-            else:
-                print("Reach iteration limit")
-                break
-        else:
+        verification_result1, reason1 = verifier.verification(ltl_spec, raw_plan)
+        verification_result2, reason2 = fol_verifier.verification(raw_plan)
+        if verification_result1 and verification_result2:
             print("This plan meets the specification.")
+            break
+        if not verification_result1 and verification_result2:
+            reason = reason1
+        if verification_result1 and not verification_result2:
+            reason = reason2
+        else:
+            if len(reason) > len(reason2):
+                reason = reason2
+            else:
+                reason = reason1
+        print(reason)
+        if llm_plan.iter_num < 4:
+            response_plan, llm_plan.conversation_history = llm_plan.call(reason)
+        else:
+            print("Reach iteration limit")
             break
 
 

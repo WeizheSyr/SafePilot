@@ -5,7 +5,7 @@ At each step, the driver can only travel from the current city to the next city 
 At each step, the driver cannot travel from the current city to another city that lacks a direct road to the current city.
 The driver are able to take a direct road multiple times and can visit a city multiple times.
 You will be required to provide a plan detailing each step for the driver to travel from the init city to the goal city.
-The path of the driver is subject to certain constraints.
+The path of the driver is subject to certain temporal constraints.
 Here is 'You should have been to C and D before you go to G'.
 Please give me the constrain in LTL formula. 
 For example, if there exist cities A and B, a and b are used to represent the proposition that the driver has already visited A and B, respectively. 

@@ -64,26 +64,26 @@ llm_plan = Llm(func_plan, func_call_plan, model_plan, api_key)
 verifier = Verifier(problem_path)
 
 def main():
-    # first_prompt_formula = llm_formula.get_prompt_from_file(formula_path)
-    # response_formula, llm_formula.conversation_history = llm_formula.call(first_prompt_formula)
-    # while True:
-    #     formula_dict = json.loads(response_formula)
-    #     fol_spec = formula_dict["code"]
-    #     print(f"GPT: Here is the formula. Please let me know if this meets the requirements. Please answer yes or no.\n{fol_spec}")
-    #     user_input = input("User: ")
-    #     if user_input.lower() in ['no']:
-    #         if llm_formula.iter_num < 2:
-    #             new_prompt = "This formula does not meet the specification. Please give me the full runnable code."
-    #             response_formula, llm_formula.conversation_history = llm_formula.call(new_prompt)
-    #         else:
-    #             print("GPT: Please write your answer in draft.py.")
-    #             with open('draft.py', 'r', encoding='utf-8') as file:
-    #                 fol_spec = file.read()
-    #             break
-    #     else:
-    #         break
-    # with open(fol_spec_path, 'w', encoding='utf-8') as file:
-    #     file.write(fol_spec)
+    first_prompt_formula = llm_formula.get_prompt_from_file(formula_path)
+    response_formula, llm_formula.conversation_history = llm_formula.call(first_prompt_formula)
+    while True:
+        formula_dict = json.loads(response_formula)
+        fol_spec = formula_dict["code"]
+        print(f"GPT: Here is the formula. Please let me know if this meets the requirements. Please answer yes or no.\n{fol_spec}")
+        user_input = input("User: ")
+        if user_input.lower() in ['no']:
+            if llm_formula.iter_num < 2:
+                new_prompt = "This formula does not meet the specification. Please give me the full runnable code."
+                response_formula, llm_formula.conversation_history = llm_formula.call(new_prompt)
+            else:
+                print("GPT: Please write your answer in draft.py.")
+                with open('draft.py', 'r', encoding='utf-8') as file:
+                    fol_spec = file.read()
+                break
+        else:
+            break
+    with open(fol_spec_path, 'w', encoding='utf-8') as file:
+        file.write(fol_spec)
     
 
     first_prompt_plan = llm_plan.get_prompt_from_file("first_prompt_plan.txt")

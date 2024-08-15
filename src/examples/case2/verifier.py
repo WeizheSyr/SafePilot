@@ -76,7 +76,7 @@ class Verifier(LTL_Verifier):
         return state
     
     def reasoning(self, wrong_steps):
-        reason = "Formula is violated by the following run: \n"
+        reason = "The following run is invalid: \n"
         pairs = self.raw_plan.split("\n")
         for i in range(wrong_steps + 1):
             if i != 0:

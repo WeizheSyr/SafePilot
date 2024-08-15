@@ -41,7 +41,7 @@ Given the planning problem driver-1
 (You should have been to C and D before you go to G))
 (:roads
 (A-B)
-(B-E)
+(A-E)
 (E-D)
 (B-C)
 (B-F)
@@ -52,3 +52,4 @@ Given the planning problem driver-1
 (:goal
 (G))
 )
+
