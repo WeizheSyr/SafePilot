@@ -50,8 +50,8 @@ func_plan = [
         }
     ]
 func_call_plan = {"name": "save_plan"}
-# model_plan = "gpt-4-turbo"
-model_plan ="gpt-4o"
+model_plan = "gpt-4-turbo"
+# model_plan ="gpt-4o"
 
 formula_path = "first_prompt_formula.txt"
 problem_path = "first_prompt_plan.txt"
@@ -93,17 +93,17 @@ def main():
         if verification_result1 and verification_result2:
             print("This plan meets the specification.")
             break
-        if not verification_result1 and verification_result2:
+        elif not verification_result1 and verification_result2:
             reason = reason1
-        if verification_result1 and not verification_result2:
+        elif verification_result1 and not verification_result2:
             reason = reason2
         else:
-            if len(reason) > len(reason2):
+            if len(reason1) > len(reason2):
                 reason = reason2
             else:
                 reason = reason1
         print(reason)
-        if llm_plan.iter_num < 4:
+        if llm_plan.iter_num < 5:
             response_plan, llm_plan.conversation_history = llm_plan.call(reason)
         else:
             print("Reach iteration limit")

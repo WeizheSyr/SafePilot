@@ -64,11 +64,16 @@ class Verifier2(Fol_verifier):
             return True
         return False
     
+    def city_constraint(self, prev_city, from_city):
+        if prev_city == from_city:
+            return True
+        return False
+
     def reasoning(self, wrong_steps):
         reason = "The following run is invalid: \n"
         pairs = self.raw_plan.split("\n")[1:-1]
         for i in range(wrong_steps):
-            reason += pairs[i] + '\n'
+            reason += str(pairs[i]) + '\n'
         return reason
     
     def verification(self, plan):
@@ -80,16 +85,20 @@ class Verifier2(Fol_verifier):
         # Check init
         init_city = self.get_init()
         if init_city != self.plan[0][0]:
-            wrong_steps == 1
+            wrong_steps = 1
             reason = self.reasoning(wrong_steps)
             return False, reason
 
         # Define the solver and check each steps of the plan
         solver = Solver()
+        prev_city = None
         for i in range(len(self.plan) - 1):
             from_city = self.plan[i][0]
             to_city = self.plan[i][1]
             solver.add(self.road_constraint(from_city, to_city))
+            if i > 0:
+                solver.add(self.city_constraint(prev_city, from_city))
+            prev_city = to_city
             if solver.check() != sat:
                 wrong_steps = i + 1
                 reason = self.reasoning(wrong_steps)
