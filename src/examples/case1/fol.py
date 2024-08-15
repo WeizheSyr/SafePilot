@@ -44,13 +44,8 @@ def stack(s1, s2, block1, block2):
     return And(preconditions, effects)
 
 def unstack(s1, s2, block1, block2):
-    preconditions = And(s1.stacked(block1, block2), s1.clear(block1), s1.handsfree())
-    effects = And(Not(s2.stacked(block1, block2)),
-                  Or(s2.table(block1), s2.hand(block1)),
-                  s2.clear(block2),
-                  If(s2.hand(block1), Not(s2.clear(block1)), s2.clear(block1)),
-                  Not(s2.hand(block2)),
-                  s1.is_same_for_other_blocks(s2, block1),
-                  s1.is_same_for_other_blocks(s2, block2),
-                  s1.is_stacked_same(s2))
-    return And(preconditions, effects)
+    preconditions = And(s1.stacked(block1, block2), s1.clear(block1))
+    conditions_for_table = And(Not(s2.stacked(block1, block2)), s2.table(block1), s2.clear(block1), s2.clear(block2))
+    conditions_for_hand = And(Not(s2.stacked(block1, block2)), s2.hand(block1), Not(s2.clear(block1)))
+    effects = If(Or(s1.table(block2), s1.hand(block2)), conditions_for_hand, conditions_for_table)
+    return And(preconditions, effects, s1.is_same_for_other_blocks(s2, block1), s1.is_same_for_other_blocks(s2, block2), s1.is_stacked_same(s2))

@@ -76,7 +76,11 @@ def main():
                 new_prompt = "This formula does not meet the specification. Please give me the full runnable code."
                 response_formula, llm_formula.conversation_history = llm_formula.call(new_prompt)
             else:
-                print("GPT: Please write your answer in draft.py.")
+                print("GPT: Please write your answer in draft.py. Please answer 'finish' if you finished.")
+                while True:
+                    user_input = input("User: ")
+                    if user_input.lower() == 'finish':
+                        break
                 with open('draft.py', 'r', encoding='utf-8') as file:
                     fol_spec = file.read()
                 break
